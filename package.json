@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "LambdaSchool Auth",
   "scripts": {
+    "start": "nodemon backend/app.js",
     "watch": "npm test -- --watch"
   },
   "license": "ISC",

@@ -9,9 +9,9 @@ class AccountCreate extends Component {
 };
   saveUser = (e) => {
     e.preventDefault();
-    const { username, password } = this.state;
+    // const { username, password } = this.state;
     axios
-      .post("http://localhost:3000/users", { username, password })
+      .post('http://localhost:5000/users', this.state)
       .then(re => {
         console.log(re);
       })

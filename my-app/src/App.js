@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
-import AccountCreate from "./AccountCreate";
-import Login from "./Login";
-import UserComponent from "./UserComponent";
+import AccountCreate from "./Components/AccountCreate";
+import Login from "./Components/Login";
+import UserComponent from "./Components/UserComponent";
 
 class App extends Component {
   state = {
     login: false,
-    createAccount: true
+    createAccount: true,
+    me: false,
   };
 
   togglelogin = componentName => {
@@ -33,7 +34,7 @@ class App extends Component {
         {this.state.createAccount ? (
           <AccountCreate togglelogin={this.togglelogin} />
         ) : null}
-        {this.showMe ? <UserComponent /> : null}
+        {this.state.me ? <UserComponent /> : null}
       </div>
     );
   }

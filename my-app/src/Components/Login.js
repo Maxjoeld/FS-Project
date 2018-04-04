@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./Auth.css";
 
-class AccountCreate extends Component {
+class Login extends Component {
   state = {
-  username: "",
-  password: "",
-  requestError: false
-};
-  saveUser = (e) => {
+    username: "",
+    password: "",
+    requestError: false
+  };
+  loginUser = e => {
     e.preventDefault();
     const { username, password } = this.state;
     axios
-      .post('http://localhost:5000/users', { username, password })
+      .post("http://localhost:5000/login", { username, password })
       .then(re => {
+        this.props.showMe();
         console.log(re);
       })
       .catch(err => {
@@ -22,20 +24,22 @@ class AccountCreate extends Component {
           this.setState({ requestError: false });
         }, 3000);
       });
-  }
+  };
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     let { name, value } = e.target;
     this.setState({ [name]: value });
-  }
+  };
 
   render() {
     // console.log(this.props);
     const { username, password } = this.state;
     return (
-      <form >
-        <h2>Create Account</h2>
-        {this.state.requestError ? <h4>Error Creating Account</h4> : null}
+      <form>
+        <h2>User Login Account</h2>
+        {this.state.requestError ? (
+          <h4>Error Logging import {} from "module";</h4>
+        ) : null}
         <input
           onChange={this.handleInputChange}
           type="email"
@@ -48,11 +52,19 @@ class AccountCreate extends Component {
           name="password"
           value={password}
         />
-        <button onClick={this.saveUser}>Create User</button>
-        <p onClick={() => {this.props.togglelogin('createAccount')}}> Already have an account ?</p>
+        <button onClick={this.loginUser}>Login</button>
+        <p
+          className="login"
+          onClick={() => {
+            this.props.togglelogin("login");
+          }}
+        >
+          {" "}
+          Need an account ? Create One
+        </p>
       </form>
     );
   }
 }
 
-export default AccountCreate;
+export default Login;

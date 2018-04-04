@@ -15,7 +15,7 @@ const corsOptions = {
 };
 
 const server = express();
-server.use(cors());
+server.use(cors(corsOptions));
 // to enable parsing of json bodies for post requests
 server.use(bodyParser.json());
 server.use(
@@ -73,10 +73,12 @@ const loggedIn = (req, res, next) => {
     }
   });
 };
+// server.use(loggedIn);
 
 const restrictedPermissions = (req, res, next) => {
   const path = req.path;
   if (/restricted/.test(path)) {
+
     if (!req.session.username) {
       sendUserError('user not authorized', res);
       return;
@@ -84,7 +86,7 @@ const restrictedPermissions = (req, res, next) => {
   }
   next();
 };
-server.use('/restricted', restrictedPermissions);
+server.use(restrictedPermissions);
 /* ************ Routes ***************** */
 
 server.post('/login', (req, res) => {

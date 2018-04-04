@@ -1,19 +1,20 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
+import './Auth.css';
 
-class Login extends Component {
+class AccountCreate extends Component {
   state = {
-  username: "",
-  password: "",
+  username: '',
+  password: '',
   requestError: false
 };
-  loginUser = (e) => {
+  saveUser = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
     axios
-      .post('http://localhost:5000/login', { username, password })
+      // using "this.state "also works when posting a user
+      .post('http://localhost:5000/users', { username, password })
       .then(re => {
-          this.props.showMe();
         console.log(re);
       })
       .catch(err => {
@@ -35,25 +36,25 @@ class Login extends Component {
     const { username, password } = this.state;
     return (
       <form >
-        <h2>User Login Account</h2>
-        {this.state.requestError ? <h4>Error Logging import {  } from "module";</h4> : null}
+        <h2>Create Account</h2>
+        {this.state.requestError ? <h4>Error Creating Account</h4> : null}
         <input
           onChange={this.handleInputChange}
-          type="email"
-          name="username"
+          type='email'
+          name='username'
           value={username}
         />
         <input
           onChange={this.handleInputChange}
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           value={password}
         />
-        <button onClick={this.loginUser}>Login</button>
-        <p onClick={() => {this.props.togglelogin('login')}}> Need an account ? Create One</p>
+        <button onClick={this.saveUser}>Create User</button>
+        <p className="accountCreate" onClick={() => {this.props.togglelogin('createAccount')}}> Already have an account ?</p>
       </form>
     );
   }
 }
 
-export default Login;
+export default AccountCreate;
